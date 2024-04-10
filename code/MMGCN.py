@@ -52,17 +52,17 @@ class MMGCN(nn.Module):
         x_d = torch.randn(self.args.disease_number, self.args.fd)
 
 
-        x_m_f1 = torch.relu(self.gcn_x1_f(x_m.cuda(), data['mm_f']['edges'].cuda(), data['mm_f']['data_matrix'][data['mm_f']['edges'][0], data['mm_f']['edges'][1]].cuda()))
-        x_m_f2 = torch.relu(self.gcn_x2_f(x_m_f1, data['mm_f']['edges'].cuda(), data['mm_f']['data_matrix'][data['mm_f']['edges'][0], data['mm_f']['edges'][1]].cuda()))
+        x_m_f1 = torch.relu(self.gcn_x1_f(x_m.cpu(), data['mm_f']['edges'].cpu(), data['mm_f']['data_matrix'][data['mm_f']['edges'][0], data['mm_f']['edges'][1]].cpu()))
+        x_m_f2 = torch.relu(self.gcn_x2_f(x_m_f1, data['mm_f']['edges'].cpu(), data['mm_f']['data_matrix'][data['mm_f']['edges'][0], data['mm_f']['edges'][1]].cpu()))
 
-        x_m_s1 = torch.relu(self.gcn_x1_s(x_m.cuda(), data['mm_s']['edges'].cuda(), data['mm_s']['data_matrix'][data['mm_s']['edges'][0], data['mm_s']['edges'][1]].cuda()))
-        x_m_s2 = torch.relu(self.gcn_x2_s(x_m_s1, data['mm_s']['edges'].cuda(), data['mm_s']['data_matrix'][data['mm_s']['edges'][0], data['mm_s']['edges'][1]].cuda()))
+        x_m_s1 = torch.relu(self.gcn_x1_s(x_m.cpu(), data['mm_s']['edges'].cpu(), data['mm_s']['data_matrix'][data['mm_s']['edges'][0], data['mm_s']['edges'][1]].cpu()))
+        x_m_s2 = torch.relu(self.gcn_x2_s(x_m_s1, data['mm_s']['edges'].cpu(), data['mm_s']['data_matrix'][data['mm_s']['edges'][0], data['mm_s']['edges'][1]].cpu()))
 
-        y_d_f1 = torch.relu(self.gcn_y1_f(x_d.cuda(), data['dd_f']['edges'].cuda(), data['dd_f']['data_matrix'][data['dd_f']['edges'][0], data['dd_f']['edges'][1]].cuda()))
-        y_d_f2 = torch.relu(self.gcn_y2_f(y_d_f1, data['dd_f']['edges'].cuda(), data['dd_f']['data_matrix'][data['dd_f']['edges'][0], data['dd_f']['edges'][1]].cuda()))
+        y_d_f1 = torch.relu(self.gcn_y1_f(x_d.cpu(), data['dd_f']['edges'].cpu(), data['dd_f']['data_matrix'][data['dd_f']['edges'][0], data['dd_f']['edges'][1]].cpu()))
+        y_d_f2 = torch.relu(self.gcn_y2_f(y_d_f1, data['dd_f']['edges'].cpu(), data['dd_f']['data_matrix'][data['dd_f']['edges'][0], data['dd_f']['edges'][1]].cpu()))
 
-        y_d_s1 = torch.relu(self.gcn_y1_s(x_d.cuda(), data['dd_s']['edges'].cuda(), data['dd_s']['data_matrix'][data['dd_s']['edges'][0], data['dd_s']['edges'][1]].cuda()))
-        y_d_s2 = torch.relu(self.gcn_y2_s(y_d_s1, data['dd_s']['edges'].cuda(), data['dd_s']['data_matrix'][data['dd_s']['edges'][0], data['dd_s']['edges'][1]].cuda()))
+        y_d_s1 = torch.relu(self.gcn_y1_s(x_d.cpu(), data['dd_s']['edges'].cpu(), data['dd_s']['data_matrix'][data['dd_s']['edges'][0], data['dd_s']['edges'][1]].cpu()))
+        y_d_s2 = torch.relu(self.gcn_y2_s(y_d_s1, data['dd_s']['edges'].cpu(), data['dd_s']['data_matrix'][data['dd_s']['edges'][0], data['dd_s']['edges'][1]].cpu()))
 
         XM = torch.cat((x_m_f1, x_m_f2, x_m_s1, x_m_s2), 1).t()
 
